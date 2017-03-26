@@ -1,0 +1,236 @@
+syntax = "proto3";
+
+package rsm;
+
+option java_package = "kdb.rsm.proto";
+option java_outer_classname = "ZabMessage";
+
+message Message {
+  enum MessageType {
+    HEARTBEAT = 0;
+    // Corresponds to CEPOCH message in Zab paper.
+    PROPOSED_EPOCH = 1;
+    NEW_EPOCH = 2;
+    ACK_EPOCH = 3;
+    NEW_LEADER = 4;
+    ACK_LEADER = 5;
+    PROPOSE = 7;
+    ACK = 8;
+    COMMIT = 9;
+    PULL_TXN_REQ = 10;
+    PROPOSAL = 11;
+    DIFF = 12;
+    TRUNCATE = 13;
+    REQUEST = 15;
+    HANDSHAKE = 16;
+    DISCONNECTED = 17;
+    QUERY_LEADER = 18;
+    QUERY_LEADER_REPLY = 19;
+    JOIN = 20;
+    // The last message of synchronization. It contains cluster configuration.
+    SYNC_END = 21;
+    REMOVE = 22;
+    SHUT_DOWN = 23;
+    DELIVERED = 24;
+    FILE_HEADER = 25;
+    FILE_RECEIVED = 26;
+    FLUSH_REQ = 27;
+    FLUSH = 28;
+    // The request of synchronizing the log.
+    SYNC_HISTORY = 29;
+    SYNC_HISTORY_REPLY = 30;
+    ELECTION_INFO = 31;
+    // Snapshot.
+    SNAPSHOT = 32;
+    SNAPSHOT_DONE =33;
+    // Invalid message.
+    INVALID_MESSAGE = 100;
+  }
+
+  MessageType type = 1;
+
+  // One of the following will be filled in depending on the message type. If
+  // the message type is heartbeat message, then none of the following will be
+  // filled in.
+   ProposedEpoch proposed_epoch = 2;
+   NewEpoch new_epoch = 3;
+   AckEpoch ack_epoch = 4;
+   PullTxnReq pull_txn_req = 5;
+   Proposal proposal = 6;
+   Diff diff = 7;
+   Truncate truncate = 8;
+   NewLeader new_leader = 9;
+   Ack ack = 10;
+   Request request = 12;
+   Commit commit = 13;
+   Handshake handshake = 14;
+   Disconnected disconnected = 15;
+   QueryReply reply = 16;
+   ClusterConfiguration config = 17;
+   Remove remove = 18;
+   Delivered delivered = 19;
+   FileHeader file_header = 20;
+   FileReceived file_received = 21;
+   FlushRequest flush_request = 22;
+   Flush flush = 23;
+   Join join = 24;
+   SyncHistory sync_history = 25;
+   SyncHistoryReply sync_history_reply = 26;
+   ElectionInfo election_info = 27;
+   Snapshot snapshot = 28;
+   SnapshotDone snapshot_done  = 29;
+   InvalidMessage invalid = 30;
+}
+
+message InvalidMessage {
+   bytes received_bytes = 1;
+}
+
+// This message corresponds to CEPOCH message in Zab paper.
+message ProposedEpoch {
+   int64 proposed_epoch = 1;
+   int64 current_epoch = 2;
+   ClusterConfiguration config = 3;
+   int32 sync_timeout = 4;
+}
+
+message NewEpoch {
+   int64 new_epoch = 1;
+   int32 sync_timeout = 2;
+}
+
+message AckEpoch {
+   int64 acknowledged_epoch = 1;
+   Zxid lastZxid = 2;
+}
+
+// Leader sends this message to ask follower to sync its history to leader
+// from last_zxid.
+message PullTxnReq {
+  // Sync follower's history to leader from last_xid.
+   Zxid last_zxid = 1;
+}
+
+// Proposal contains transaction id and transaction data.
+message Proposal {
+  enum ProposalType {
+    USER_REQUEST = 0;
+    COP = 1;
+  }
+  // Transaction id.
+   Zxid zxid = 1;
+  // Transaction body.
+   bytes body = 2;
+  // The type for this proposal.
+   ProposalType type = 3;
+  // The id of the client who sends the request.
+ string clientId = 4;
+}
+
+message Diff {
+   Zxid last_zxid = 1;
+}
+
+message Truncate {
+   Zxid last_prefix_zxid = 1;
+   Zxid last_zxid = 2;
+}
+
+message Snapshot {
+   Zxid last_zxid = 1;
+  Zxid snap_zxid = 2;
+}
+
+message SnapshotDone {
+   string file_path = 1;
+}
+
+message Zxid {
+   int64 epoch = 1;
+   int64 xid = 2;
+}
+
+message NewLeader {
+   int64 epoch = 1;
+}
+
+message Ack {
+   Zxid zxid = 1;
+}
+
+message Commit {
+   Zxid zxid = 1;
+}
+
+message Request {
+   bytes request = 1;
+}
+
+// This message is used by NettyTransport. When a TCP connection is established,
+// the TCP client send a Handshake message with its own node ID (hostname:port) to
+// the TCP server, where the port is the port the TCP client is listening to for
+// accepting incoming connections. When the TCP server receives the Handshake
+// message, it sends back a Handshake message with its node ID.
+message Handshake {
+   string node_id = 1;
+}
+
+// Once onDisconnected callback is called, passe this message to main thread to
+// let it handles the disconnection. This message will not go through network.
+message Disconnected {
+   string server_id = 1;
+}
+
+message ClusterConfiguration {
+  repeated string servers = 1;
+   Zxid version = 2;
+}
+
+message QueryReply {
+   string leader = 1;
+}
+
+message Join {
+   Zxid lastZxid = 1;
+}
+
+message Remove {
+   string serverId = 1;
+}
+
+message Delivered {
+   Zxid zxid = 1;
+}
+
+message FileHeader {
+   int64 length = 1;
+}
+
+message FileReceived {
+   string full_path = 1;
+}
+
+message FlushRequest {
+   bytes body = 2;
+}
+
+message Flush {
+   Zxid zxid = 1;
+   bytes body = 2;
+}
+
+message SyncHistory {
+   Zxid last_zxid = 1;
+}
+
+message SyncHistoryReply {
+   int32 sync_timeout = 1;
+}
+
+message ElectionInfo {
+   string vote = 1;
+   Zxid zxid = 2;
+   int64 ack_epoch = 3;
+   bool is_electing = 4;
+   int64 round = 5;
+}

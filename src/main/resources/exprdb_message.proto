@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+package kdb;
+
+option java_package = "kdb.proto";
+option java_outer_classname = "Database";
+
+message Message {
+
+  enum MessageType {
+    Get = 0;
+    Scan = 1;
+    Put = 2;
+    Delete = 3;
+    Open = 4;
+    Drop = 5;
+    Compact = 6;
+    Sequence = 7;
+    Scanlog = 8;
+    Backup = 9;
+    Restore = 10;
+    Response = 11;
+  }
+
+  MessageType type = 1;
+  GetOperation getOp = 2;
+  PutOperation putOp = 3;
+  DeleteOperation deleteOp = 4;
+  OpenOperation openOp = 5;
+  DropOperation dropOp = 6;
+  ScanOperation scanOp = 7;
+  CompactOperation compactOp = 8;
+  SequenceOperation seqOp = 9;
+  ScanlogOperation scanlogOp = 10;
+  BackupOperation backupOp = 11;
+  RestoreOperation restoreOp = 12;
+  Response response = 13;
+}
+
+message SequenceOperation {
+  string table = 1;
+  string endpoint = 2;
+  int64 seqno = 3;
+}
+
+message ScanlogOperation {
+  string table = 1;
+  int64 seqno = 2;
+  int32 limit = 3;
+}
+
+message Response {
+  enum Type {
+    OK = 0;
+    Error = 1;
+  }
+
+  Type type = 1;
+  int64 seqno = 2;
+  string reason = 3;
+  string token = 4;
+  repeated bytes keys = 5;
+  repeated bytes values = 6;
+  bytes logops = 7;
+}
+
+message GetOperation {
+  string table = 1;
+  string column = 2;
+  repeated bytes keys = 3;
+}
+
+message ScanOperation {
+  enum Type {
+    First = 0;
+    Last = 1;
+    ScanNext = 2;
+    ScanPrev = 3;
+    Next = 4;
+    Prev = 5;
+    Close = 6;
+  }
+
+  Type op = 1;
+  string table = 2;
+  string column = 3;
+  string token = 4;
+  int32 limit = 5;
+  bytes key = 6;
+  bytes key2 = 7;
+}
+
+message PutOperation {
+  string table = 1;
+  string column = 2;
+  repeated bytes keys = 3;
+  repeated bytes values = 4;
+}
+
+message DeleteOperation {
+  string table = 1;
+  string column = 2;
+  repeated bytes keys = 3;
+}
+
+message OpenOperation {
+  string table = 1;
+  string mergeOperator = 2;
+  repeated string columns = 3;
+  int32 ttl = 4;
+  string compression = 5;
+  string options = 6;
+}
+
+message CompactOperation {
+  string table = 1;
+  string column = 2;
+  bytes begin = 3;
+  bytes end = 4;
+}
+
+message DropOperation {
+  string table = 1;
+  string column = 2;
+}
+
+message BackupOperation {
+  enum Type {
+    Create = 0;
+    List = 1;
+  }
+  Type op = 1;
+  string table = 2;
+}
+
+message RestoreOperation {
+  string table = 1;
+  int32 backupId = 2;
+}
