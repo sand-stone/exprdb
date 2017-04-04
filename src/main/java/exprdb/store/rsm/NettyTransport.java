@@ -56,7 +56,7 @@ import javax.net.ssl.TrustManagerFactory;
 import exprdb.store.rsm.proto.ZabMessage.Message;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import static kdb.rsm.proto.ZabMessage.Message.MessageType;
+import static exprdb.store.rsm.proto.ZabMessage.Message.MessageType;
 
 /**
  * Netty-based transport.

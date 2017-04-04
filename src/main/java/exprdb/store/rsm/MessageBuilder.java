@@ -21,8 +21,8 @@ import exprdb.store.rsm.proto.ZabMessage.Remove;
 import exprdb.store.rsm.proto.ZabMessage.Request;
 import exprdb.store.rsm.proto.ZabMessage.Snapshot;
 import exprdb.store.rsm.proto.ZabMessage.Truncate;
-import static kdb.rsm.proto.ZabMessage.Message.MessageType;
-import static kdb.rsm.proto.ZabMessage.Proposal.ProposalType;
+import static exprdb.store.rsm.proto.ZabMessage.Message.MessageType;
+import static exprdb.store.rsm.proto.ZabMessage.Proposal.ProposalType;
 
 /**
  * Helper class used for creating protobuf messages.

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package rsm;
 
-option java_package = "kdb.rsm.proto";
+option java_package = "exprdb.store.rsm.proto";
 option java_outer_classname = "ZabMessage";
 
 message Message {

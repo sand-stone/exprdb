@@ -1,7 +1,7 @@
 package exprdb.store.rsm;
 
 import java.nio.ByteBuffer;
-import static kdb.rsm.proto.ZabMessage.Proposal.ProposalType;
+import static exprdb.store.rsm.proto.ZabMessage.Proposal.ProposalType;
 
 /**
  * Transaction.

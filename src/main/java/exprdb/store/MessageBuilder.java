@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 import com.google.protobuf.ByteString;
 import java.util.*;
-import exprdb.store.proto.Database.*;
-import exprdb.store.proto.Database.Message.MessageType;
+import exprdb.proto.Database.*;
+import exprdb.proto.Database.Message.MessageType;
 
 final class MessageBuilder {
 

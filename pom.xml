@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>kdb</groupId>
-  <artifactId>kdb</artifactId>
+  <groupId>exprdb</groupId>
+  <artifactId>exprdb</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>kdb</name>
+  <name>exprdb</name>
   <url>http://maven.apache.org</url>
   <repositories>
   </repositories>
@@ -54,7 +54,7 @@
                 <mkdir dir="target/generated-sources" />
                 <exec executable="protoc">
                   <arg value="--java_out=target/generated-sources" />
-                  <arg value="src/main/resources/kdb_message.proto" />
+                  <arg value="src/main/resources/exprdb_message.proto" />
                 </exec>
               </tasks>
               <sourceRoot>target/generated-sources</sourceRoot>
@@ -98,67 +98,67 @@
         <version>0.8</version>
         <executions>
           <execution>
-            <id>kdb--leader-process</id>
+            <id>Exprdb--leader-process</id>
             <phase>pre-integration-test</phase>
             <goals>
               <goal>start</goal>
             </goals>
             <configuration>
-              <name>kdb-test</name>
+              <name>exprdb-test</name>
               <workingDir>${basedir}</workingDir>
               <waitForInterrupt>false</waitForInterrupt>
               <healthcheckUrl>http://localhost:8000/</healthcheckUrl>
               <arguments>
                 <argument>java</argument>
                 <argument>-cp</argument>
-                <argument>${basedir}/target/kdb-${project.version}.jar</argument>
-                <argument>kdb.Transport</argument>
+                <argument>${basedir}/target/exprdb-${project.version}.jar</argument>
+                <argument>exprdb.store.Transport</argument>
                 <argument>${basedir}/conf/datanode1.properties</argument>
               </arguments>
             </configuration>
           </execution>
           <execution>
-            <id>kdb-follower-process1</id>
+            <id>exprdb-follower-process1</id>
             <phase>pre-integration-test</phase>
             <goals>
               <goal>start</goal>
             </goals>
             <configuration>
-              <name>kdb-test</name>
+              <name>exprdb-test</name>
               <workingDir>${basedir}</workingDir>
               <waitForInterrupt>false</waitForInterrupt>
               <healthcheckUrl>http://localhost:8002</healthcheckUrl>
               <arguments>
                 <argument>java</argument>
                 <argument>-cp</argument>
-                <argument>${basedir}/target/kdb-${project.version}.jar</argument>
-                <argument>kdb.Transport</argument>
+                <argument>${basedir}/target/exprdb-${project.version}.jar</argument>
+                <argument>exprdb.store.Transport</argument>
                 <argument>${basedir}/conf/datanode2.properties</argument>
               </arguments>
             </configuration>
           </execution>
           <execution>
-            <id>kdb-follower-process2</id>
+            <id>exprdb-follower-process2</id>
             <phase>pre-integration-test</phase>
             <goals>
               <goal>start</goal>
             </goals>
             <configuration>
-              <name>kdb-test</name>
+              <name>exprdb-test</name>
               <workingDir>${basedir}</workingDir>
               <waitForInterrupt>false</waitForInterrupt>
               <healthcheckUrl>http://localhost:8004</healthcheckUrl>
               <arguments>
                 <argument>java</argument>
                 <argument>-cp</argument>
-                <argument>${basedir}/target/kdb-${project.version}.jar</argument>
-                <argument>kdb.Transport</argument>
+                <argument>${basedir}/target/exprdb-${project.version}.jar</argument>
+                <argument>exprdb.store.Transport</argument>
                 <argument>${basedir}/conf/datanode3.properties</argument>
               </arguments>
             </configuration>
           </execution>
           <execution>
-            <id>stop-kdb-process</id>
+            <id>stop-exprdb-process</id>
             <phase>post-integration-test</phase>
             <goals><goal>stop-all</goal></goals>
           </execution>

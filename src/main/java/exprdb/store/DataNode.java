@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import exprdb.store.proto.Database.*;
+import exprdb.proto.Database.*;
 import exprdb.store.rsm.ZabException;
 
 final class DataNode {

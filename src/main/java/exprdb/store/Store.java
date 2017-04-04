@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.rocksdb.*;
-import exprdb.store.proto.Database.*;
-import exprdb.store.proto.Database.Message.MessageType;
+import exprdb.proto.Database.*;
+import exprdb.proto.Database.Message.MessageType;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;

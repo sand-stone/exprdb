@@ -17,8 +17,8 @@ import exprdb.store.rsm.Zab;
 import exprdb.store.rsm.ZabConfig;
 import exprdb.store.rsm.ZabException;
 import exprdb.store.rsm.Zxid;
-import exprdb.store.proto.Database.Message;
-import exprdb.store.proto.Database.Message.MessageType;
+import exprdb.proto.Database.Message;
+import exprdb.proto.Database.Message.MessageType;
 
 class Ring implements StateMachine {
   private static Logger log = LogManager.getLogger(Ring.class);

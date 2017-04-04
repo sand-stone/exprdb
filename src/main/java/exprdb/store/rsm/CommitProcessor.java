@@ -20,7 +20,7 @@ import exprdb.store.rsm.proto.ZabMessage.Message;
 import exprdb.store.rsm.proto.ZabMessage.Message.MessageType;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import static kdb.rsm.proto.ZabMessage.Proposal.ProposalType;
+import static exprdb.store.rsm.proto.ZabMessage.Proposal.ProposalType;
 
 /**
  * This class is used to deliver committed transaction.

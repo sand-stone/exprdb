@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package kdb;
+package database;
 
-option java_package = "kdb.proto";
+option java_package = "exprdb.proto";
 option java_outer_classname = "Database";
 
 message Message {

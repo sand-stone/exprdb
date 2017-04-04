@@ -20,7 +20,7 @@ import exprdb.store.rsm.ZabException.InvalidPhase;
 import exprdb.store.rsm.ZabException.TooManyPendingRequests;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import static kdb.rsm.proto.ZabMessage.Proposal.ProposalType;
+import static exprdb.store.rsm.proto.ZabMessage.Proposal.ProposalType;
 
 /**
  * Participant is the base class for different roles of Jzab(Leader/Follower).

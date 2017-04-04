@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.commons.configuration2.*;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
-import exprdb.store.proto.Database.Message;
+import exprdb.proto.Database.Message;
 import com.google.protobuf.InvalidProtocolBufferException;
 import exprdb.store.rsm.ZabException;
 import java.util.List;

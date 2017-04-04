@@ -1,4 +1,4 @@
-package kdb;
+package exprdb.store;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

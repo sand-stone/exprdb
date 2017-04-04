@@ -15,7 +15,7 @@ import org.asynchttpclient.*;
 import java.util.concurrent.Future;
 import io.netty.util.HashedWheelTimer;
 
-import exprdb.store.proto.Database.*;
+import exprdb.proto.Database.*;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public final class Client implements Closeable {
@@ -35,9 +35,9 @@ public final class Client implements Closeable {
   }
 
   public static class Result {
-    kdb.proto.Database.Response rsp;
+    exprdb.proto.Database.Response rsp;
 
-    Result(kdb.proto.Database.Response rsp) {
+    Result(exprdb.proto.Database.Response rsp) {
       this.rsp = rsp;
     }
 
